@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>Home</h1>
+    {% if user %}
+    <h1 class="text-center">Notes</h1>
+    <ul class="list-group list-group-flush "id="notes">
+        {% for note in user.notes %}
+        <li class="list-group-item list-group-item-success">
+
+            {{note.text}}
+            {{note.date}}
+            
+            <button type="button" class="close" onclick="deleteNote({{note.id}})">
+                <span aria-hidden="true">&times; </span></button>
+            </li>
+        {% else %}
+            <li>You don't have a Note</li>
+        {% endfor %}
+        
+        </ul>
+    {% endif %}
+    <form method="POST">
+        <textarea name="note" id="note" class="form-control mb-5"></textarea>
+        <div class="form-check">
+            <input type="checkbox" class="form-check-input" name="public" id="public">
+            <label for="public" class="form-check-box">Public</label>
+        </div>
+        <div class="d-flex justify-content-center">
+            <button type="submit" class="btn btn-primary"> Add a Note</button>
+        </div>
+    </form>
+
+    <h2>Public Notes</h2>
+    <ul class="list-group list-group-flush pb-5">
+        {% for note in public_notes %}
+        <li class="list-group-item list-group-item-success">
+                
+            {{note.text}}
+            {{note.date}}
+            {{note.username}}
+        </li>
+        {% else %}
+            <li>There are no public notes</li>
+        {% endfor %}
+    </ul>
+{% endblock %}
