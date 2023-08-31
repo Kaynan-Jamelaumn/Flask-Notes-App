@@ -20,12 +20,6 @@ def signUp():
         email = request.form.get('email')
         password = request.form.get('password')
         password_confirmation = request.form.get('password-confirmation')
-        print(password_confirmation, password)
-        # dictin = {
-        #     'nome': request.form.get('nome'),
-        #     'email': request.form.get('email')
-        # }
-
         user = User.query.filter_by(email=email).first()#pega o primeiro usuario com o email
         if user:
             flash('Email already exists.', category='error')
